@@ -10,36 +10,35 @@ st.set_page_config(
 )
 
 
-# 2. Fonction de style : Fond d'écran brouillard (flouté) et conteneur translucide
-def apply_custom_style():
+# 2. Style CSS moderne, épuré et sans aucune photo externe
+def apply_clean_theme():
   st.markdown(
       """
         <style>
-        /* Fond d'écran global avec superposition douce */
+        /* Fond global épuré en dégradé doux */
         .stApp {
-            background: linear-gradient(rgba(245, 247, 250, 0.85), rgba(245, 247, 250, 0.85)), 
-                        url("https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=1920&auto=format&fit=crop");
-            background-size: cover;
-            background-attachment: fixed;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
         }
         
-        /* Effet brouillard / verre dépoli sur le bloc principal */
+        /* Conteneur principal style carte moderne */
         .block-container {
-            background-color: rgba(255, 255, 255, 0.88);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            padding: 2.5rem;
-            border-radius: 18px;
-            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.12);
-            border: 1px solid rgba(255, 255, 255, 0.18);
+            background-color: #ffffff;
+            padding: 2rem 3rem;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+            margin-top: 1rem;
         }
 
-        /* Arrondir les images de bannière */
-        .stImage > img {
-            border-radius: 12px;
-            max-height: 220px;
-            object-fit: cover;
-            margin-bottom: 1rem;
+        /* Titres et sous-titres stylisés */
+        h1, h2, h3 {
+            color: #1e293b;
+            font-weight: 700;
+        }
+
+        /* Cartes de métriques personnalisées */
+        [data-testid="stMetricValue"] {
+            font-size: 1.8rem;
+            color: #0f172a;
         }
         </style>
         """,
@@ -47,11 +46,12 @@ def apply_custom_style():
   )
 
 
-apply_custom_style()
+apply_clean_theme()
 
-# 3. Menu latéral de navigation
+# 3. Menu latéral
+st.sidebar.title("📌 Navigation SQL")
 menu = st.sidebar.selectbox(
-    "Navigation",
+    "Choisir une analyse :",
     [
         "Accueil & Contexte (9 tables)",
         "Chiffre d'Affaires & Croissance",
@@ -65,43 +65,48 @@ menu = st.sidebar.selectbox(
 
 # --- PAGE 1 : ACCUEIL ---
 if menu == "Accueil & Contexte (9 tables)":
-  st.image(
-      "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1200&auto=format&fit=crop",
-      use_container_width=True,
-  )
   st.title("📊 Tableau de bord - Olist E-Commerce Analytics")
   st.markdown(
       "Application interactive complète mettant en valeur l'analyse SQL des **9"
       " tables** de la marketplace Olist."
   )
 
+  st.divider()
+
+  # Indicateurs Clés (KPIs Réels)
   col1, col2, col3, col4 = st.columns(4)
   col1.metric("Commandes totales", "99 441", "+97% livrées")
   col2.metric("Clients uniques", "96 096", "Base unifiée")
   col3.metric("Chiffre d'Affaires", "13.2M R$", "Ventes validées")
-  col4.metric("Tables exploitées", "9 / 9", "Intégralité du projet")
+  col4.metric("Tables exploitées", "9 / 9", "Projet complet")
 
-  st.markdown("### 📁 Les 9 tables du projet :")
-  st.markdown("""
-    - `olist_orders_dataset` (Commandes)
-    - `olist_customers_dataset` (Clients)
-    - `olist_order_items_dataset` (Lignes de commande)
-    - `olist_order_payments_dataset` (Paiements)
-    - `olist_order_reviews_dataset` (Avis et notes)
-    - `olist_products_dataset` (Produits)
-    - `olist_sellers_dataset` (Vendeurs)
-    - `olist_geolocation_dataset` (Géolocalisation)
-    - `product_category_name_translation` (Traduction des catégories)
-    """)
+  st.divider()
+
+  st.markdown("### 📁 Les 9 tables analysées dans le modèle :")
+  col_a, col_b = st.columns(2)
+  with col_a:
+    st.markdown("""
+        * `olist_orders_dataset` (Commandes)[cite: 21]
+        * `olist_customers_dataset` (Clients)[cite: 21]
+        * `olist_order_items_dataset` (Articles)[cite: 21]
+        * `olist_order_payments_dataset` (Paiements)[cite: 21]
+        * `olist_order_reviews_dataset` (Avis)[cite: 21]
+        """)
+  with col_b:
+    st.markdown("""
+        * `olist_products_dataset` (Catalogue produits)[cite: 21]
+        * `olist_sellers_dataset` (Vendeurs)[cite: 21]
+        * `olist_geolocation_dataset` (Coordonnées geo)[cite: 21]
+        * `product_category_name_translation` (Traductions)[cite: 21]
+        """)
 
 # --- PAGE 2 : CHIFFRE D'AFFAIRES ---
 elif menu == "Chiffre d'Affaires & Croissance":
-  st.image(
-      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1200&auto=format&fit=crop",
-      use_container_width=True,
+  st.title("📈 Évolution et Analyse Dynamique du Chiffre d'Affaires")
+  st.markdown(
+      "Pilotez l'évolution temporelle pour analyser chaque variation réelle de"
+      " votre requête SQL."
   )
-  st.header("📈 Évolution et Analyse Dynamique du Chiffre d'Affaires")
-  st.markdown("Pilotez l'évolution temporelle pour analyser chaque variation.")
 
   data_ca = [
       {
@@ -215,7 +220,8 @@ elif menu == "Chiffre d'Affaires & Croissance":
   col_g, col_d = st.columns([2, 1])
   with col_g:
     mois_sel = st.select_slider(
-        "Sélectionnez le mois à analyser :", options=df_ca["mois"].tolist()
+        "Faites glisser pour faire évoluer la courbe :",
+        options=df_ca["mois"].tolist(),
     )
     df_f = df_ca[df_ca["mois"] <= mois_sel]
     fig = px.area(
@@ -225,12 +231,13 @@ elif menu == "Chiffre d'Affaires & Croissance":
         markers=True,
         range_x=["2017-01", "2017-12"],
         range_y=[0, 1350000],
-        title="Évolution du Chiffre d'Affaires",
+        title="Évolution du Chiffre d'Affaires (en R$)",
     )
+    fig.update_traces(line_color="#2563eb", fillcolor="rgba(37, 99, 235, 0.2)")
     st.plotly_chart(fig, use_container_width=True)
 
   with col_d:
-    st.markdown("### 💡 Analyse en direct")
+    st.markdown("### 💡 Analyse du mois")
     info = df_ca[df_ca["mois"] == mois_sel].iloc[0]
     st.info(f"**Mois :** {info['mois']}")
     st.metric("Chiffre d'Affaires", f"{info['ca']:,.0f} R$")
@@ -239,14 +246,8 @@ elif menu == "Chiffre d'Affaires & Croissance":
 
 # --- PAGE 3 : SEGMENTATION RFM ---
 elif menu == "Segmentation RFM (Clients)":
-  st.image(
-      "https://images.unsplash.com/photo-1556742049-0a670f4a458d?q=80&w=1200&auto=format&fit=crop",
-      use_container_width=True,
-  )
-  st.header("🎯 Exploration Interactive des Segments RFM")
-  st.markdown(
-      "Cliquez sur un segment pour comprendre sa valeur pour la marketplace."
-  )
+  st.title("🎯 Segmentation RFM des Clients")
+  st.markdown("Analyse croisée Récence, Fréquence et Montant.")
 
   data_rfm = [
       {
@@ -254,8 +255,7 @@ elif menu == "Segmentation RFM (Clients)":
           "clients": 14519,
           "ca": 3877678.0,
           "desc": (
-              "Le cœur de valeur de la marketplace : achètent souvent, ont"
-              " acheté récemment et dépensent beaucoup."
+              "Cœur de valeur de la marketplace : achats fréquents et récents."
           ),
       },
       {
@@ -263,54 +263,38 @@ elif menu == "Segmentation RFM (Clients)":
           "clients": 13746,
           "ca": 3806579.0,
           "desc": (
-              "Gros paniers historiques mais dont la date de dernière commande"
-              " commence à dater. Nécessitent des campagnes de réactivation."
+              "Gros paniers historiques mais inactifs récemment. À relancer."
           ),
       },
       {
           "segment": "Occasionnels",
           "clients": 18067,
           "ca": 2348240.0,
-          "desc": (
-              "Clients réguliers ou modérés représentant un volume de base stable"
-              " mais nécessitant du upsell."
-          ),
+          "desc": "Achats modérés mais base client très large.",
       },
       {
           "segment": "Perdus",
           "clients": 22610,
           "ca": 1259040.0,
-          "desc": (
-              "Anciens clients inactifs depuis longtemps et générant de"
-              " faibles montants actuels."
-          ),
+          "desc": "Anciens clients n'ayant pas repassé commande depuis longtemps.",
       },
       {
           "segment": "Nouveaux clients",
           "clients": 21615,
           "ca": 1201552.0,
-          "desc": (
-              "Acquisition récente, fort potentiel de transformation en clients"
-              " fidèles."
-          ),
+          "desc": "Premier achat récent, fort potentiel de fidélisation.",
       },
       {
           "segment": "Fidèles actifs",
           "clients": 1813,
           "ca": 484852.0,
-          "desc": (
-              "Fréquence de rachat élevée, ambassadeurs naturels de la"
-              " plateforme."
-          ),
+          "desc": "Excellente fréquence d'achat régulière.",
       },
       {
           "segment": "Fidèles endormis",
           "clients": 988,
           "ca": 243556.0,
-          "desc": (
-              "Anciens clients très fidèles qu'il faut relancer en priorité"
-              " pour éviter l'attrition définitive."
-          ),
+          "desc": "Clients réguliers par le passé en perte de vitesse.",
       },
   ]
   df_rfm = pd.DataFrame(data_rfm)
@@ -322,32 +306,25 @@ elif menu == "Segmentation RFM (Clients)":
         x="segment",
         y="ca",
         color="segment",
-        title="Chiffre d'Affaires par Segment RFM",
+        title="Contribution au CA par Segment (R$)",
     )
     st.plotly_chart(fig_bar, use_container_width=True)
 
   with col_d:
-    st.markdown("### 🔍 Détail du segment")
+    st.markdown("### 🔍 Audit du segment")
     seg_choisi = st.selectbox(
-        "Choisissez un segment à auditer :", df_rfm["segment"].tolist()
+        "Choisir un segment :", df_rfm["segment"].tolist()
     )
     det = df_rfm[df_rfm["segment"] == seg_choisi].iloc[0]
     st.info(f"**Segment :** {det['segment']}")
-    st.metric("Clients concernés", f"{det['clients']:,}")
-    st.metric("CA du segment", f"{det['ca']:,.0f} R$")
-    st.markdown(f"**Stratégie / Analyse :**\n{det['desc']}")
+    st.metric("Clients", f"{det['clients']:,}")
+    st.metric("Chiffre d'Affaires", f"{det['ca']:,.0f} R$")
+    st.markdown(f"**Diagnostic :**\n{det['desc']}")
 
 # --- PAGE 4 : COHORTES ---
 elif menu == "Rétention par Cohortes":
-  st.image(
-      "https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?q=80&w=1200&auto=format&fit=crop",
-      use_container_width=True,
-  )
-  st.header("🔄 Analyse Dynamique de Rétention par Cohortes")
-  st.markdown(
-      "Évolution du taux de retour client à M1, M3 et M6 selon la cohorte"
-      " d'origine."
-  )
+  st.title("🔄 Analyse de Rétention par Cohortes")
+  st.markdown("Analyse du taux de rachat à M1, M3 et M6.")
 
   data_coh = [
       {
@@ -356,7 +333,7 @@ elif menu == "Rétention par Cohortes":
           "m1": 0.27,
           "m3": 0.13,
           "m6": 0.27,
-          "analyse": "Cohorte initiale restreinte, comportement de réachat volatil.",
+          "analyse": "Cohorte initiale avec comportements ciblés.",
       },
       {
           "cohorte": "2017-03",
@@ -364,7 +341,7 @@ elif menu == "Rétention par Cohortes":
           "m1": 0.39,
           "m3": 0.24,
           "m6": 0.20,
-          "analyse": "Bon taux de retour à M1 (0.39%) avant une stabilisation.",
+          "analyse": "Bon taux de retour initial à M1 (0.39%).",
       },
       {
           "cohorte": "2017-05",
@@ -372,7 +349,7 @@ elif menu == "Rétention par Cohortes":
           "m1": 0.17,
           "m3": 0.29,
           "m6": 0.17,
-          "analyse": "Pic de rétention à M3 (0.29%), témoignant d'une fidélité à moyen terme.",
+          "analyse": "Pic de réachat constaté au bout de 3 mois.",
       },
       {
           "cohorte": "2017-07",
@@ -380,7 +357,7 @@ elif menu == "Rétention par Cohortes":
           "m1": 0.52,
           "m3": 0.34,
           "m6": 0.21,
-          "analyse": "Meilleure cohorte globale en termes de retour à M1 (0.52%).",
+          "analyse": "Excellente cohorte estivale.",
       },
       {
           "cohorte": "2017-09",
@@ -388,7 +365,7 @@ elif menu == "Rétention par Cohortes":
           "m1": 0.35,
           "m3": 0.20,
           "m6": 0.15,
-          "analyse": "Rétention correcte à l'approche de la fin d'année.",
+          "analyse": "Rétention stable de rentrée.",
       },
       {
           "cohorte": "2017-11",
@@ -397,8 +374,8 @@ elif menu == "Rétention par Cohortes":
           "m3": 0.18,
           "m6": 0.14,
           "analyse": (
-              "Gros volume de la cohorte Black Friday, mais dilution du taux"
-              " de rachat global."
+              "Volume très important poussé par le Black Friday mais faible"
+              " rachat."
           ),
       },
   ]
@@ -407,75 +384,45 @@ elif menu == "Rétention par Cohortes":
   col_g, col_d = st.columns([2, 1])
   with col_g:
     coh_sel = st.selectbox(
-        "Sélectionnez une cohorte mensuelle :", df_c["cohorte"].tolist()
+        "Sélectionner la cohorte :", df_c["cohorte"].tolist()
     )
     df_f_c = df_c[df_c["cohorte"] == coh_sel]
     st.dataframe(
         df_f_c[["cohorte", "taille", "m1", "m3", "m6"]], use_container_width=True
     )
-    st.info(
-        "💡 **Constat général :** Moins de 1 % des clients repassent commande,"
-        " traduisant un modèle à acheteurs uniques."
+    st.warning(
+        "💡 **Conclusion SQL :** Taux de rachat global < 1%, confirmant des"
+        " achats uniques."
     )
 
   with col_d:
-    st.markdown("### 📋 Explication de la cohorte")
+    st.markdown("### 📋 Détail Cohorte")
     info_c = df_f_c.iloc[0]
-    st.markdown(f"**Mois d'origine :** {info_c['cohorte']}")
-    st.metric("Taille de la cohorte", f"{info_c['taille']:,} clients")
-    st.markdown(f"**Diagnostic :**\n{info_c['analyse']}")
+    st.markdown(f"**Cohorte :** {info_c['cohorte']}")
+    st.metric("Taille initiale", f"{info_c['taille']:,} clients")
+    st.markdown(f"**Analyse :**\n{info_c['analyse']}")
 
 # --- PAGE 5 : LOGISTIQUE ---
 elif menu == "Statuts & Logistique":
-  st.image(
-      "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?q=80&w=1200&auto=format&fit=crop",
-      use_container_width=True,
-  )
-  st.header("📦 Analyse des Statuts de Commandes & Logistique")
-  st.markdown("Découvrez la performance logistique et le taux de livraison.")
+  st.title("📦 Analyse Logistique & Statuts")
+  st.markdown("Ventilation des états de traitement des commandes.")
 
   data_st = [
       {
           "statut": "delivered",
           "pct": 97.02,
-          "desc": (
-              "Commandes livrées avec succès. C'est le cœur de l'activité"
-              " logistique."
-          ),
+          "desc": "Livrées avec succès aux clients.",
       },
-      {
-          "statut": "shipped",
-          "pct": 1.15,
-          "desc": "Commandes expédiées et actuellement en cours d'acheminement.",
-      },
-      {
-          "statut": "canceled",
-          "pct": 0.63,
-          "desc": (
-              "Commandes annulées (par le client ou suite à une rupture de"
-              " stock)."
-          ),
-      },
+      {"statut": "shipped", "pct": 1.15, "desc": "En cours d'acheminement."},
+      {"statut": "canceled", "pct": 0.63, "desc": "Annulées avant livraison."},
       {
           "statut": "unavailable",
           "pct": 0.31,
-          "desc": "Articles indisponibles au moment du traitement.",
+          "desc": "Stock indisponible chez le vendeur.",
       },
-      {
-          "statut": "invoiced",
-          "pct": 0.31,
-          "desc": "Commandes facturées mais en attente d'expédition.",
-      },
-      {
-          "statut": "processing",
-          "pct": 0.30,
-          "desc": "Commandes en cours de préparation logistique.",
-      },
-      {
-          "statut": "created",
-          "pct": 0.05,
-          "desc": "Commandes créées mais non encore payées ou traitées.",
-      },
+      {"statut": "invoiced", "pct": 0.31, "desc": "Facturées, en attente d'envoi."},
+      {"statut": "processing", "pct": 0.30, "desc": "En cours de préparation."},
+      {"statut": "created", "pct": 0.05, "desc": "Créées, paiement non validé."},
   ]
   df_st = pd.DataFrame(data_st)
 
@@ -486,55 +433,29 @@ elif menu == "Statuts & Logistique":
         names="statut",
         values="pct",
         hole=0.4,
-        title="Répartition des Statuts de Commandes",
+        title="Répartition des Statuts de Commandes (%)",
     )
     st.plotly_chart(fig_pie, use_container_width=True)
 
   with col_d:
-    st.markdown("### 🔍 Focus Logistique")
-    st.success("Taux de livraison global remarquable : **97.02%**")
+    st.markdown("### 🔍 Performance Logistique")
+    st.success("Taux de livraison validé : **97.02%**")
     st.write(
-        "Utilisez le graphique circulaire pour visualiser le poids infime des"
-        " incidents par rapport aux commandes livrées."
+        "Le taux de commandes annulées ou indisponibles reste maîtrisé sous"
+        " la barre des 1%."
     )
 
 # --- PAGE 6 : AVIS CLIENTS ---
 elif menu == "Avis & Satisfaction Client":
-  st.image(
-      "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=1200&auto=format&fit=crop",
-      use_container_width=True,
-  )
-  st.header("⭐ Analyse de la Satisfaction (Avis Clients)")
-  st.markdown(
-      "Évaluation de la qualité perçue à travers les notes de 1 à 5 étoiles."
-  )
+  st.title("⭐ Analyse de la Satisfaction Client")
+  st.markdown("Répartition des notes laissées sur les commandes.")
 
   data_rev = [
-      {
-          "note": "5 Étoiles",
-          "pct": 57.3,
-          "avis": "Expérience parfaite, livraison rapide et conforme.",
-      },
-      {
-          "note": "4 Étoiles",
-          "pct": 19.1,
-          "avis": "Très satisfaisant, quelques détails mineurs.",
-      },
-      {
-          "note": "3 Étoiles",
-          "pct": 8.3,
-          "avis": "Neutre : produit correct mais délais un peu longs.",
-      },
-      {
-          "note": "2 Étoiles",
-          "pct": 3.2,
-          "avis": "Insatisfaction partielle (produit endommagé ou retard).",
-      },
-      {
-          "note": "1 Étoile",
-          "pct": 12.1,
-          "avis": "Problème majeur (non livraison ou non-conformité grave).",
-      },
+      {"note": "5 Étoiles", "pct": 57.3, "avis": "Excellente satisfaction."},
+      {"note": "4 Étoiles", "pct": 19.1, "avis": "Très bonne évaluation."},
+      {"note": "3 Étoiles", "pct": 8.3, "avis": "Avis mitigé."},
+      {"note": "2 Étoiles", "pct": 3.2, "avis": "Insatisfaction partielle."},
+      {"note": "1 Étoile", "pct": 12.1, "avis": "Insatisfaction majeure."},
   ]
   df_r = pd.DataFrame(data_rev)
 
@@ -550,24 +471,20 @@ elif menu == "Avis & Satisfaction Client":
     st.plotly_chart(fig_rev, use_container_width=True)
 
   with col_d:
-    st.markdown("### 💡 Lecture des Avis")
-    note_sel = st.selectbox("Sélectionner une note :", df_r["note"].tolist())
+    st.markdown("### 💡 Synthèse Satisfaction")
+    note_sel = st.selectbox("Note :", df_r["note"].tolist())
     r_info = df_r[df_r["note"] == note_sel].iloc[0]
     st.metric("Part des avis", f"{r_info['pct']}%")
-    st.markdown(f"**Profil de l'avis :**\n{r_info['avis']}")
+    st.markdown(f"**Explication :**\n{r_info['avis']}")
 
 # --- PAGE 7 : GEOLOCALISATION ---
 elif menu == "Vendeurs & Géolocalisation":
-  st.image(
-      "https://images.unsplash.com/photo-1526778548025-fa2f459cd5c1?q=80&w=1200&auto=format&fit=crop",
-      use_container_width=True,
-  )
-  st.header("🌍 Performance des Vendeurs & Géolocalisation")
-  st.markdown("Analyse de la répartition territoriale de la marketplace.")
+  st.title("🌍 Géolocalisation & Vendeurs Partenaires")
+  st.markdown("Maillage territorial des acheteurs et vendeurs.")
 
   col1, col2 = st.columns(2)
   with col1:
-    st.subheader("Top États (Clients/Vendeurs)")
+    st.subheader("Top États (Volume de Ventes)")
     df_geo = pd.DataFrame({
         "État": [
             "São Paulo (SP)",
@@ -580,9 +497,9 @@ elif menu == "Vendeurs & Géolocalisation":
     st.dataframe(df_geo, use_container_width=True)
 
   with col2:
-    st.subheader("Écosystème Partenaire")
-    st.metric("Vendeurs actifs", "3 095", "Répartis sur le territoire")
+    st.subheader("Réseau Vendeurs")
+    st.metric("Vendeurs enregistrés", "3 095", "Actifs dans l'écosystème")
     st.info(
-        "💡 La concentration majeure dans l'État de São Paulo explique en"
-        " grande partie l'efficacité des délais de livraison."
+        "💡 L'État de São Paulo (SP) concentre la majorité de l'activité"
+        " commerciale et logistique."
     )
