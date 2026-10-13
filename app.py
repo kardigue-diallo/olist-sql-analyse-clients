@@ -2,26 +2,54 @@ import pandas as pd
 import plotly.express as px
 import streamlit as st
 
-# Configuration de la page Streamlit
+# 1. Configuration de la page Streamlit
 st.set_page_config(
     page_title="Olist E-Commerce Analytics",
     page_icon="📊",
     layout="wide",
 )
 
-# Bannière d'en-tête professionnelle (Remplace le fond d'écran instable)
-st.image(
-    "https://images.unsplash.com/photo-1557804506-669a67965ba0?q=80&w=1200&auto=format&fit=crop",
-    use_container_width=True,
-)
 
-st.title("📊 Tableau de bord - Olist E-Commerce Analytics")
-st.markdown(
-    "Application interactive complète mettant en valeur l'analyse SQL des **9"
-    " tables** de la marketplace Olist."
-)
+# 2. Fonction de style : Fond d'écran brouillard (flouté) et conteneur translucide
+def apply_custom_style():
+  st.markdown(
+      """
+        <style>
+        /* Fond d'écran global avec superposition douce */
+        .stApp {
+            background: linear-gradient(rgba(245, 247, 250, 0.85), rgba(245, 247, 250, 0.85)), 
+                        url("https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=1920&auto=format&fit=crop");
+            background-size: cover;
+            background-attachment: fixed;
+        }
+        
+        /* Effet brouillard / verre dépoli sur le bloc principal */
+        .block-container {
+            background-color: rgba(255, 255, 255, 0.88);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            padding: 2.5rem;
+            border-radius: 18px;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.12);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+        }
 
-# Menu latéral de navigation
+        /* Arrondir les images de bannière */
+        .stImage > img {
+            border-radius: 12px;
+            max-height: 220px;
+            object-fit: cover;
+            margin-bottom: 1rem;
+        }
+        </style>
+        """,
+      unsafe_allow_html=True,
+  )
+
+
+apply_custom_style()
+
+# 3. Menu latéral de navigation
 menu = st.sidebar.selectbox(
     "Navigation",
     [
@@ -35,12 +63,16 @@ menu = st.sidebar.selectbox(
     ],
 )
 
+# --- PAGE 1 : ACCUEIL ---
 if menu == "Accueil & Contexte (9 tables)":
-  st.header("Bienvenue sur le dashboard d'analyse Olist !")
-  st.write(
-      "Ce projet analyse une marketplace e-commerce brésilienne à travers"
-      " un ensemble de requêtes SQL pures (SQLite) exploitant l'intégralité du"
-      " modèle relationnel."
+  st.image(
+      "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1200&auto=format&fit=crop",
+      use_container_width=True,
+  )
+  st.title("📊 Tableau de bord - Olist E-Commerce Analytics")
+  st.markdown(
+      "Application interactive complète mettant en valeur l'analyse SQL des **9"
+      " tables** de la marketplace Olist."
   )
 
   col1, col2, col3, col4 = st.columns(4)
@@ -62,7 +94,12 @@ if menu == "Accueil & Contexte (9 tables)":
     - `product_category_name_translation` (Traduction des catégories)
     """)
 
+# --- PAGE 2 : CHIFFRE D'AFFAIRES ---
 elif menu == "Chiffre d'Affaires & Croissance":
+  st.image(
+      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1200&auto=format&fit=crop",
+      use_container_width=True,
+  )
   st.header("📈 Évolution et Analyse Dynamique du Chiffre d'Affaires")
   st.markdown("Pilotez l'évolution temporelle pour analyser chaque variation.")
 
@@ -200,7 +237,12 @@ elif menu == "Chiffre d'Affaires & Croissance":
     st.markdown(f"**Tendance :** `{info['tendance']}`")
     st.markdown(f"**Explication :**\n{info['explication']}")
 
+# --- PAGE 3 : SEGMENTATION RFM ---
 elif menu == "Segmentation RFM (Clients)":
+  st.image(
+      "https://images.unsplash.com/photo-1556742049-0a670f4a458d?q=80&w=1200&auto=format&fit=crop",
+      use_container_width=True,
+  )
   st.header("🎯 Exploration Interactive des Segments RFM")
   st.markdown(
       "Cliquez sur un segment pour comprendre sa valeur pour la marketplace."
@@ -295,7 +337,12 @@ elif menu == "Segmentation RFM (Clients)":
     st.metric("CA du segment", f"{det['ca']:,.0f} R$")
     st.markdown(f"**Stratégie / Analyse :**\n{det['desc']}")
 
+# --- PAGE 4 : COHORTES ---
 elif menu == "Rétention par Cohortes":
+  st.image(
+      "https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?q=80&w=1200&auto=format&fit=crop",
+      use_container_width=True,
+  )
   st.header("🔄 Analyse Dynamique de Rétention par Cohortes")
   st.markdown(
       "Évolution du taux de retour client à M1, M3 et M6 selon la cohorte"
@@ -378,8 +425,13 @@ elif menu == "Rétention par Cohortes":
     st.metric("Taille de la cohorte", f"{info_c['taille']:,} clients")
     st.markdown(f"**Diagnostic :**\n{info_c['analyse']}")
 
+# --- PAGE 5 : LOGISTIQUE ---
 elif menu == "Statuts & Logistique":
-  st.header("📦 Analyse des Statuts de Commandes")
+  st.image(
+      "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?q=80&w=1200&auto=format&fit=crop",
+      use_container_width=True,
+  )
+  st.header("📦 Analyse des Statuts de Commandes & Logistique")
   st.markdown("Découvrez la performance logistique et le taux de livraison.")
 
   data_st = [
@@ -446,7 +498,12 @@ elif menu == "Statuts & Logistique":
         " incidents par rapport aux commandes livrées."
     )
 
+# --- PAGE 6 : AVIS CLIENTS ---
 elif menu == "Avis & Satisfaction Client":
+  st.image(
+      "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=1200&auto=format&fit=crop",
+      use_container_width=True,
+  )
   st.header("⭐ Analyse de la Satisfaction (Avis Clients)")
   st.markdown(
       "Évaluation de la qualité perçue à travers les notes de 1 à 5 étoiles."
@@ -499,7 +556,12 @@ elif menu == "Avis & Satisfaction Client":
     st.metric("Part des avis", f"{r_info['pct']}%")
     st.markdown(f"**Profil de l'avis :**\n{r_info['avis']}")
 
+# --- PAGE 7 : GEOLOCALISATION ---
 elif menu == "Vendeurs & Géolocalisation":
+  st.image(
+      "https://images.unsplash.com/photo-1526778548025-fa2f459cd5c1?q=80&w=1200&auto=format&fit=crop",
+      use_container_width=True,
+  )
   st.header("🌍 Performance des Vendeurs & Géolocalisation")
   st.markdown("Analyse de la répartition territoriale de la marketplace.")
 
