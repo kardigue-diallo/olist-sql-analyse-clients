@@ -10,7 +10,7 @@ st.set_page_config(
 )
 
 
-# 2. Style CSS épuré et moderne
+# 2. Style CSS épuré et moderne (fond doux, pas de fausses photos)
 def apply_clean_theme():
   st.markdown(
       """
@@ -20,7 +20,7 @@ def apply_clean_theme():
         }
         .block-container {
             background-color: #ffffff;
-            padding: 2rem 3rem;
+            padding: 2.5rem 3rem;
             border-radius: 16px;
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
             margin-top: 1rem;
@@ -28,14 +28,6 @@ def apply_clean_theme():
         h1, h2, h3 {
             color: #0f172a;
             font-weight: 700;
-        }
-        /* Style des images d'illustration sous les titres */
-        .stImage img {
-            border-radius: 12px;
-            max-height: 200px;
-            object-fit: cover;
-            margin-top: 10px;
-            margin-bottom: 20px;
         }
         </style>
         """,
@@ -64,12 +56,8 @@ menu = st.sidebar.selectbox(
 if menu == "Accueil & Contexte (9 tables)":
   st.title("📊 Tableau de bord - Olist E-Commerce Analytics")
   st.markdown(
-      "Application interactive complète mettant en valeur l'analyse SQL des **9"
-      " tables** de la marketplace Olist."
-  )
-  st.image(
-      "https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=1000&auto=format&fit=crop",
-      use_container_width=True,
+      "Application interactive mettant en valeur l'analyse SQL globale des"
+      " **9 tables** de la marketplace Olist."
   )
 
   st.divider()
@@ -82,7 +70,7 @@ if menu == "Accueil & Contexte (9 tables)":
 
   st.divider()
 
-  st.markdown("### 📁 Les 9 tables analysées dans le modèle :")
+  st.markdown("### 📁 Structure relationnelle des 9 tables analysées :")
   col_a, col_b = st.columns(2)
   with col_a:
     st.markdown("""
@@ -96,7 +84,7 @@ if menu == "Accueil & Contexte (9 tables)":
     st.markdown("""
         * `olist_products_dataset` (Catalogue produits)
         * `olist_sellers_dataset` (Vendeurs)
-        * `olist_geolocation_dataset` (Coordonnées geo)
+        * `olist_geolocation_dataset` (Coordonnées géo)
         * `product_category_name_translation` (Traductions)
         """)
 
@@ -104,12 +92,8 @@ if menu == "Accueil & Contexte (9 tables)":
 elif menu == "Chiffre d'Affaires & Croissance":
   st.title("📈 Évolution et Analyse Dynamique du Chiffre d'Affaires")
   st.markdown(
-      "Pilotez l'évolution temporelle pour analyser chaque variation réelle de"
-      " votre requête SQL."
-  )
-  st.image(
-      "https://images.unsplash.com/photo-1559526324-4b87b5e36e44?q=80&w=1000&auto=format&fit=crop",
-      use_container_width=True,
+      "Pilotez le curseur pour observer la croissance et lire l'explication"
+      " contextuelle de chaque mois."
   )
 
   data_ca = [
@@ -118,8 +102,8 @@ elif menu == "Chiffre d'Affaires & Croissance":
           "ca": 111798.0,
           "tendance": "Lancement stable",
           "explication": (
-              "Démarrage de l'activité sur la marketplace Olist avec un"
-              " premier socle de commandes."
+              "Démarrage de l'activité sur Olist avec un premier socle de"
+              " commandes."
           ),
       },
       {
@@ -127,8 +111,8 @@ elif menu == "Chiffre d'Affaires & Croissance":
           "ca": 234000.0,
           "tendance": "Forte hausse (+109%)",
           "explication": (
-              "Première belle accélération grâce à l'acquisition de nouveaux"
-              " clients et vendeurs."
+              "Accélération liée à l'acquisition de nouveaux clients et"
+              " vendeurs."
           ),
       },
       {
@@ -136,8 +120,8 @@ elif menu == "Chiffre d'Affaires & Croissance":
           "ca": 359000.0,
           "tendance": "Hausse continue (+53%)",
           "explication": (
-              "Confirmation de la croissance trimestrielle et du volume"
-              " d'articles."
+              "Confirmation de la croissance trimestrielle et hausse des"
+              " volumes."
           ),
       },
       {
@@ -145,8 +129,7 @@ elif menu == "Chiffre d'Affaires & Croissance":
           "ca": 410000.0,
           "tendance": "Progression régulière (+14%)",
           "explication": (
-              "Stabilisation de la dynamique de commande, panier moyen"
-              " maintenu."
+              "Stabilisation des commandes, panier moyen bien maintenu."
           ),
       },
       {
@@ -154,8 +137,7 @@ elif menu == "Chiffre d'Affaires & Croissance":
           "ca": 590000.0,
           "tendance": "Pic de croissance (+44%)",
           "explication": (
-              "Gros pic d'activité stimulé par des campagnes et l'élargissement"
-              " du catalogue."
+              "Pic d'activité stimulé par l'élargissement du catalogue."
           ),
       },
       {
@@ -163,8 +145,7 @@ elif menu == "Chiffre d'Affaires & Croissance":
           "ca": 510000.0,
           "tendance": "Légère baisse (-13%)",
           "explication": (
-              "Correction naturelle après le record de mai, réajustement des"
-              " volumes."
+              "Correction naturelle des volumes après le mois record de mai."
           ),
       },
       {
@@ -172,7 +153,8 @@ elif menu == "Chiffre d'Affaires & Croissance":
           "ca": 481605.0,
           "tendance": "Stabilisation",
           "explication": (
-              "Phase de palier estivale, la demande globale reste stable."
+              "Palier estival : demande globale stable sur les catégories"
+              " phares."
           ),
       },
       {
@@ -180,8 +162,7 @@ elif menu == "Chiffre d'Affaires & Croissance":
           "ca": 670000.0,
           "tendance": "Forte reprise (+39%)",
           "explication": (
-              "Nouvelle impulsion forte portée par l'arrivée de vendeurs"
-              " actifs."
+              "Nouvelle dynamique tirée par l'arrivée de vendeurs actifs."
           ),
       },
       {
@@ -189,8 +170,7 @@ elif menu == "Chiffre d'Affaires & Croissance":
           "ca": 720000.0,
           "tendance": "Hausse soutenue (+7%)",
           "explication": (
-              "La rentrée s'accompagne d'un trafic accru et de transactions"
-              " en hausse."
+              "Augmentation du volume de transactions lors de la rentrée."
           ),
       },
       {
@@ -198,7 +178,7 @@ elif menu == "Chiffre d'Affaires & Croissance":
           "ca": 770000.0,
           "tendance": "Croissance continue (+7%)",
           "explication": (
-              "Préparation progressive des périodes de fin d'année."
+              "Préparation progressive des grands événements de fin d'année."
           ),
       },
       {
@@ -206,8 +186,7 @@ elif menu == "Chiffre d'Affaires & Croissance":
           "ca": 1180000.0,
           "tendance": "Record historique (+53%)",
           "explication": (
-              "🚀 **Black Friday !** Pic absolu de chiffre d'affaires de toute"
-              " la période."
+              "🚀 Black Friday ! Sommet absolu des ventes sur la période."
           ),
       },
       {
@@ -215,7 +194,7 @@ elif menu == "Chiffre d'Affaires & Croissance":
           "ca": 950000.0,
           "tendance": "Fin d'année élevée",
           "explication": (
-              "Volumes de fêtes très élevés, confirmant la forte saisonnalité."
+              "Fort volume lié aux fêtes, confirmant la saisonnalité."
           ),
       },
   ]
@@ -235,13 +214,13 @@ elif menu == "Chiffre d'Affaires & Croissance":
         markers=True,
         range_x=["2017-01", "2017-12"],
         range_y=[0, 1350000],
-        title="Évolution du Chiffre d'Affaires (en R$)",
+        title="Évolution du Chiffre d'Affaires (R$)",
     )
     fig.update_traces(line_color="#2563eb", fillcolor="rgba(37, 99, 235, 0.2)")
     st.plotly_chart(fig, use_container_width=True)
 
   with col_d:
-    st.markdown("### 💡 Analyse du mois")
+    st.markdown("### 💡 Fenêtre d'analyse")
     info = df_ca[df_ca["mois"] == mois_sel].iloc[0]
     st.info(f"**Mois :** {info['mois']}")
     st.metric("Chiffre d'Affaires", f"{info['ca']:,.0f} R$")
@@ -251,6 +230,257 @@ elif menu == "Chiffre d'Affaires & Croissance":
 # --- PAGE 3 : SEGMENTATION RFM ---
 elif menu == "Segmentation RFM (Clients)":
   st.title("🎯 Segmentation RFM des Clients")
-  st.markdown("Analyse croisée Récence, Fréquence et Montant.")
-  st.image(
-      "
+  st.markdown("Analyse croisée de la Récence, la Fréquence et du Montant.")
+
+  data_rfm = [
+      {
+          "segment": "Gros acheteurs récents",
+          "clients": 14519,
+          "ca": 3877678.0,
+          "desc": (
+              "Cœur de valeur : clients fidèles avec des achats fréquents et"
+              " récents."
+          ),
+      },
+      {
+          "segment": "À risque (gros montant)",
+          "clients": 13746,
+          "ca": 3806579.0,
+          "desc": (
+              "Gros paniers historiques mais inactifs récemment. Cible de"
+              " relance."
+          ),
+      },
+      {
+          "segment": "Occasionnels",
+          "clients": 18067,
+          "ca": 2348240.0,
+          "desc": "Achats modérés, représente une base très large.",
+      },
+      {
+          "segment": "Perdus",
+          "clients": 22610,
+          "ca": 1259040.0,
+          "desc": "Anciens clients sans nouvelle commande depuis longtemps.",
+      },
+      {
+          "segment": "Nouveaux clients",
+          "clients": 21615,
+          "ca": 1201552.0,
+          "desc": "Premier achat récent, potentiel de fidélisation.",
+      },
+      {
+          "segment": "Fidèles actifs",
+          "clients": 1813,
+          "ca": 484852.0,
+          "desc": "Fréquence de rachat élevée et régulière.",
+      },
+      {
+          "segment": "Fidèles endormis",
+          "clients": 988,
+          "ca": 243556.0,
+          "desc": "Anciens clients très réguliers en perte d'activité.",
+      },
+  ]
+  df_rfm = pd.DataFrame(data_rfm)
+
+  col_g, col_d = st.columns([2, 1])
+  with col_g:
+    fig_bar = px.bar(
+        df_rfm,
+        x="segment",
+        y="ca",
+        color="segment",
+        title="Contribution au CA par Segment (R$)",
+    )
+    st.plotly_chart(fig_bar, use_container_width=True)
+
+  with col_d:
+    st.markdown("### 🔍 Audit de segment")
+    seg_choisi = st.selectbox(
+        "Choisir un segment :", df_rfm["segment"].tolist()
+    )
+    det = df_rfm[df_rfm["segment"] == seg_choisi].iloc[0]
+    st.info(f"**Segment :** {det['segment']}")
+    st.metric("Nombre de clients", f"{det['clients']:,}")
+    st.metric("Chiffre d'Affaires", f"{det['ca']:,.0f} R$")
+    st.markdown(f"**Diagnostic :**\n{det['desc']}")
+
+# --- PAGE 4 : COHORTES ---
+elif menu == "Rétention par Cohortes":
+  st.title("🔄 Analyse de Rétention par Cohortes")
+  st.markdown("Suivi du taux de rachat à M1, M3 et M6.")
+
+  data_coh = [
+      {
+          "cohorte": "2017-01",
+          "taille": 743,
+          "m1": 0.27,
+          "m3": 0.13,
+          "m6": 0.27,
+          "analyse": "Cohorte initiale avec comportements restreints.",
+      },
+      {
+          "cohorte": "2017-03",
+          "taille": 2554,
+          "m1": 0.39,
+          "m3": 0.24,
+          "m6": 0.20,
+          "analyse": "Bon retour initial à M1 (0.39%).",
+      },
+      {
+          "cohorte": "2017-05",
+          "taille": 3451,
+          "m1": 0.17,
+          "m3": 0.29,
+          "m6": 0.17,
+          "analyse": "Leger pic de réachat observé à 3 mois.",
+      },
+      {
+          "cohorte": "2017-07",
+          "taille": 3810,
+          "m1": 0.52,
+          "m3": 0.34,
+          "m6": 0.21,
+          "analyse": "Excellente performance de rétention estivale.",
+      },
+      {
+          "cohorte": "2017-09",
+          "taille": 4012,
+          "m1": 0.35,
+          "m3": 0.20,
+          "m6": 0.15,
+          "analyse": "Rétention de rentrée stable.",
+      },
+      {
+          "cohorte": "2017-11",
+          "taille": 7060,
+          "m1": 0.23,
+          "m3": 0.18,
+          "m6": 0.14,
+          "analyse": "Volume poussé par le Black Friday mais faible rachat.",
+      },
+  ]
+  df_c = pd.DataFrame(data_coh)
+
+  col_g, col_d = st.columns([2, 1])
+  with col_g:
+    coh_sel = st.selectbox(
+        "Sélectionner une cohorte :", df_c["cohorte"].tolist()
+    )
+    df_f_c = df_c[df_c["cohorte"] == coh_sel]
+    st.dataframe(
+        df_f_c[["cohorte", "taille", "m1", "m3", "m6"]], use_container_width=True
+    )
+    st.warning(
+        "💡 **Conclusion SQL :** Taux de rachat global < 1%, confirmant des"
+        " achats uniques."
+    )
+
+  with col_d:
+    st.markdown("### 📋 Explication Cohorte")
+    info_c = df_f_c.iloc[0]
+    st.markdown(f"**Cohorte :** {info_c['cohorte']}")
+    st.metric("Taille initiale", f"{info_c['taille']:,} clients")
+    st.markdown(f"**Diagnostic :**\n{info_c['analyse']}")
+
+# --- PAGE 5 : LOGISTIQUE ---
+elif menu == "Statuts & Logistique":
+  st.title("📦 Analyse Logistique & Statuts")
+  st.markdown("Ventilation des états de traitement des commandes.")
+
+  data_st = [
+      {
+          "statut": "delivered",
+          "pct": 97.02,
+          "desc": "Commandes livrées avec succès.",
+      },
+      {"statut": "shipped", "pct": 1.15, "desc": "En cours d'acheminement."},
+      {"statut": "canceled", "pct": 0.63, "desc": "Annulées avant livraison."},
+      {
+          "statut": "unavailable",
+          "pct": 0.31,
+          "desc": "Stock indisponible chez le vendeur.",
+      },
+      {"statut": "invoiced", "pct": 0.31, "desc": "Facturées, en attente d'envoi."},
+      {"statut": "processing", "pct": 0.30, "desc": "En cours de préparation."},
+      {"statut": "created", "pct": 0.05, "desc": "Créées, paiement non validé."},
+  ]
+  df_st = pd.DataFrame(data_st)
+
+  col_g, col_d = st.columns([2, 1])
+  with col_g:
+    fig_pie = px.pie(
+        df_st,
+        names="statut",
+        values="pct",
+        hole=0.4,
+        title="Répartition des Statuts de Commandes (%)",
+    )
+    st.plotly_chart(fig_pie, use_container_width=True)
+
+  with col_d:
+    st.markdown("### 🔍 Performance Logistique")
+    st.success("Taux de livraison validé : **97.02%**")
+    st.write(
+        "Le taux de commandes annulées ou indisponibles reste maîtrisé sous 1%."
+    )
+
+# --- PAGE 6 : AVIS CLIENTS ---
+elif menu == "Avis & Satisfaction Client":
+  st.title("⭐ Analyse de la Satisfaction Client")
+  st.markdown("Répartition des notes laissées par les clients.")
+
+  data_rev = [
+      {"note": "5 Étoiles", "pct": 57.3, "avis": "Excellente satisfaction."},
+      {"note": "4 Étoiles", "pct": 19.1, "avis": "Très bonne évaluation."},
+      {"note": "3 Étoiles", "pct": 8.3, "avis": "Avis mitigé."},
+      {"note": "2 Étoiles", "pct": 3.2, "avis": "Insatisfaction partielle."},
+      {"note": "1 Étoile", "pct": 12.1, "avis": "Insatisfaction majeure."},
+  ]
+  df_r = pd.DataFrame(data_rev)
+
+  col_g, col_d = st.columns([2, 1])
+  with col_g:
+    fig_rev = px.bar(
+        df_r,
+        x="note",
+        y="pct",
+        color="note",
+        title="Distribution des Notes Clients (%)",
+    )
+    st.plotly_chart(fig_rev, use_container_width=True)
+
+  with col_d:
+    st.markdown("### 💡 Synthèse Satisfaction")
+    note_sel = st.selectbox("Choisir une note :", df_r["note"].tolist())
+    r_info = df_r[df_r["note"] == note_sel].iloc[0]
+    st.metric("Part des avis", f"{r_info['pct']}%")
+    st.markdown(f"**Détail :**\n{r_info['avis']}")
+
+# --- PAGE 7 : GEOLOCALISATION ---
+elif menu == "Vendeurs & Géolocalisation":
+  st.title("🌍 Géolocalisation & Vendeurs Partenaires")
+  st.markdown("Répartition géographique des ventes.")
+
+  col1, col2 = st.columns(2)
+  with col1:
+    st.subheader("Top États (Volume de Ventes)")
+    df_geo = pd.DataFrame({
+        "État": [
+            "São Paulo (SP)",
+            "Rio de Janeiro (RJ)",
+            "Minas Gerais (MG)",
+            "Rio Grande do Sul (RS)",
+        ],
+        "Part (%)": [42.1, 12.8, 11.6, 5.4],
+    })
+    st.dataframe(df_geo, use_container_width=True)
+
+  with col2:
+    st.subheader("Réseau Vendeurs")
+    st.metric("Vendeurs enregistrés", "3 095", "Actifs dans l'écosystème")
+    st.info(
+        "💡 L'État de São Paulo (SP) concentre la majorité de l'activité"
+        " commerciale et logistique."
+    )
