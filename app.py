@@ -10,17 +10,14 @@ st.set_page_config(
 )
 
 
-# 2. Style CSS moderne, épuré et sans aucune photo externe
+# 2. Style CSS épuré et moderne
 def apply_clean_theme():
   st.markdown(
       """
         <style>
-        /* Fond global épuré en dégradé doux */
         .stApp {
             background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
         }
-        
-        /* Conteneur principal style carte moderne */
         .block-container {
             background-color: #ffffff;
             padding: 2rem 3rem;
@@ -28,17 +25,17 @@ def apply_clean_theme():
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
             margin-top: 1rem;
         }
-
-        /* Titres et sous-titres stylisés */
         h1, h2, h3 {
             color: #1e293b;
             font-weight: 700;
         }
-
-        /* Cartes de métriques personnalisées */
-        [data-testid="stMetricValue"] {
-            font-size: 1.8rem;
-            color: #0f172a;
+        /* Style élégant pour les images d'illustration sous les textes */
+        .stImage img {
+            border-radius: 12px;
+            max-height: 250px;
+            object-fit: cover;
+            margin-top: 10px;
+            margin-bottom: 20px;
         }
         </style>
         """,
@@ -70,10 +67,13 @@ if menu == "Accueil & Contexte (9 tables)":
       "Application interactive complète mettant en valeur l'analyse SQL des **9"
       " tables** de la marketplace Olist."
   )
+  st.image(
+      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1000&auto=format&fit=crop",
+      use_container_width=True,
+  )
 
   st.divider()
 
-  # Indicateurs Clés (KPIs Réels)
   col1, col2, col3, col4 = st.columns(4)
   col1.metric("Commandes totales", "99 441", "+97% livrées")
   col2.metric("Clients uniques", "96 096", "Base unifiée")
@@ -106,6 +106,10 @@ elif menu == "Chiffre d'Affaires & Croissance":
   st.markdown(
       "Pilotez l'évolution temporelle pour analyser chaque variation réelle de"
       " votre requête SQL."
+  )
+  st.image(
+      "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1000&auto=format&fit=crop",
+      use_container_width=True,
   )
 
   data_ca = [
@@ -248,6 +252,10 @@ elif menu == "Chiffre d'Affaires & Croissance":
 elif menu == "Segmentation RFM (Clients)":
   st.title("🎯 Segmentation RFM des Clients")
   st.markdown("Analyse croisée Récence, Fréquence et Montant.")
+  st.image(
+      "https://images.unsplash.com/photo-1556742049-0a670f4a458d?q=80&w=1000&auto=format&fit=crop",
+      use_container_width=True,
+  )
 
   data_rfm = [
       {
@@ -325,6 +333,10 @@ elif menu == "Segmentation RFM (Clients)":
 elif menu == "Rétention par Cohortes":
   st.title("🔄 Analyse de Rétention par Cohortes")
   st.markdown("Analyse du taux de rachat à M1, M3 et M6.")
+  st.image(
+      "https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?q=80&w=1000&auto=format&fit=crop",
+      use_container_width=True,
+  )
 
   data_coh = [
       {
@@ -406,6 +418,10 @@ elif menu == "Rétention par Cohortes":
 elif menu == "Statuts & Logistique":
   st.title("📦 Analyse Logistique & Statuts")
   st.markdown("Ventilation des états de traitement des commandes.")
+  st.image(
+      "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?q=80&w=1000&auto=format&fit=crop",
+      use_container_width=True,
+  )
 
   data_st = [
       {
@@ -449,6 +465,10 @@ elif menu == "Statuts & Logistique":
 elif menu == "Avis & Satisfaction Client":
   st.title("⭐ Analyse de la Satisfaction Client")
   st.markdown("Répartition des notes laissées sur les commandes.")
+  st.image(
+      "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=1000&auto=format&fit=crop",
+      use_container_width=True,
+  )
 
   data_rev = [
       {"note": "5 Étoiles", "pct": 57.3, "avis": "Excellente satisfaction."},
@@ -481,6 +501,10 @@ elif menu == "Avis & Satisfaction Client":
 elif menu == "Vendeurs & Géolocalisation":
   st.title("🌍 Géolocalisation & Vendeurs Partenaires")
   st.markdown("Maillage territorial des acheteurs et vendeurs.")
+  st.image(
+      "https://images.unsplash.com/photo-1526778548025-fa2f459cd5c1?q=80&w=1000&auto=format&fit=crop",
+      use_container_width=True,
+  )
 
   col1, col2 = st.columns(2)
   with col1:
