@@ -29,7 +29,7 @@ def apply_clean_theme():
             color: #0f172a;
             font-weight: 700;
         }
-        /* Style des images : hauteur modérée, pas d'empiètement */
+        /* Style des images d'illustration sous les titres */
         .stImage img {
             border-radius: 12px;
             max-height: 200px;
@@ -67,7 +67,6 @@ if menu == "Accueil & Contexte (9 tables)":
       "Application interactive complète mettant en valeur l'analyse SQL des **9"
       " tables** de la marketplace Olist."
   )
-  # Illustration conceptuelle : Base de données / Data Analytics (sans texte)
   st.image(
       "https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=1000&auto=format&fit=crop",
       use_container_width=True,
@@ -108,7 +107,6 @@ elif menu == "Chiffre d'Affaires & Croissance":
       "Pilotez l'évolution temporelle pour analyser chaque variation réelle de"
       " votre requête SQL."
   )
-  # Illustration conceptuelle : Croissance / Finance (sans graphique fictif)
   st.image(
       "https://images.unsplash.com/photo-1559526324-4b87b5e36e44?q=80&w=1000&auto=format&fit=crop",
       use_container_width=True,
@@ -254,178 +252,5 @@ elif menu == "Chiffre d'Affaires & Croissance":
 elif menu == "Segmentation RFM (Clients)":
   st.title("🎯 Segmentation RFM des Clients")
   st.markdown("Analyse croisée Récence, Fréquence et Montant.")
-  # Illustration conceptuelle : Relation client / Shopping
   st.image(
-      "https://images.unsplash.com/photo-1556742049-0a670f4a458d?q=80&w=1000&auto=format&fit=crop",
-      use_container_width=True,
-  )
-
-  data_rfm = [
-      {
-          "segment": "Gros acheteurs récents",
-          "clients": 14519,
-          "ca": 3877678.0,
-          "desc": (
-              "Cœur de valeur de la marketplace : achats fréquents et récents."
-          ),
-      },
-      {
-          "segment": "À risque (gros montant)",
-          "clients": 13746,
-          "ca": 3806579.0,
-          "desc": (
-              "Gros paniers historiques mais inactifs récemment. À relancer."
-          ),
-      },
-      {
-          "segment": "Occasionnels",
-          "clients": 18067,
-          "ca": 2348240.0,
-          "desc": "Achats modérés mais base client très large.",
-      },
-      {
-          "segment": "Perdus",
-          "clients": 22610,
-          "ca": 1259040.0,
-          "desc": "Anciens clients n'having pas repassé commande depuis longtemps.",
-      },
-      {
-          "segment": "Nouveaux clients",
-          "clients": 21615,
-          "ca": 1201552.0,
-          "desc": "Premier achat récent, fort potentiel de fidélisation.",
-      },
-      {
-          "segment": "Fidèles actifs",
-          "clients": 1813,
-          "ca": 484852.0,
-          "desc": "Excellente fréquence d'achat régulière.",
-      },
-      {
-          "segment": "Fidèles endormis",
-          "clients": 988,
-          "ca": 243556.0,
-          "desc": "Clients réguliers par le passé en perte de vitesse.",
-      },
-  ]
-  df_rfm = pd.DataFrame(data_rfm)
-
-  col_g, col_d = st.columns([2, 1])
-  with col_g:
-    fig_bar = px.bar(
-        df_rfm,
-        x="segment",
-        y="ca",
-        color="segment",
-        title="Contribution au CA par Segment (R$)",
-    )
-    st.plotly_chart(fig_bar, use_container_width=True)
-
-  with col_d:
-    st.markdown("### 🔍 Audit du segment")
-    seg_choisi = st.selectbox(
-        "Choisir un segment :", df_rfm["segment"].tolist()
-    )
-    det = df_rfm[df_rfm["segment"] == seg_choisi].iloc[0]
-    st.info(f"**Segment :** {det['segment']}")
-    st.metric("Clients", f"{det['clients']:,}")
-    st.metric("Chiffre d'Affaires", f"{det['ca']:,.0f} R$")
-    st.markdown(f"**Diagnostic :**\n{det['desc']}")
-
-# --- PAGE 4 : COHORTES ---
-elif menu == "Rétention par Cohortes":
-  st.title("🔄 Analyse de Rétention par Cohortes")
-  st.markdown("Analyse du taux de rachat à M1, M3 et M6.")
-  # Illustration conceptuelle : Temps / Calendrier
-  st.image(
-      "https://images.unsplash.com/photo-1506784983877-45594efa4cbe?q=80&w=1000&auto=format&fit=crop",
-      use_container_width=True,
-  )
-
-  data_coh = [
-      {
-          "cohorte": "2017-01",
-          "taille": 743,
-          "m1": 0.27,
-          "m3": 0.13,
-          "m6": 0.27,
-          "analyse": "Cohorte initiale avec comportements ciblés.",
-      },
-      {
-          "cohorte": "2017-03",
-          "taille": 2554,
-          "m1": 0.39,
-          "m3": 0.24,
-          "m6": 0.20,
-          "analyse": "Bon taux de retour initial à M1 (0.39%).",
-      },
-      {
-          "cohorte": "2017-05",
-          "taille": 3451,
-          "m1": 0.17,
-          "m3": 0.29,
-          "m6": 0.17,
-          "analyse": "Pic de réachat constaté au bout de 3 mois.",
-      },
-      {
-          "cohorte": "2017-07",
-          "taille": 3810,
-          "m1": 0.52,
-          "m3": 0.34,
-          "m6": 0.21,
-          "analyse": "Excellente cohorte estivale.",
-      },
-      {
-          "cohorte": "2017-09",
-          "taille": 4012,
-          "m1": 0.35,
-          "m3": 0.20,
-          "m6": 0.15,
-          "analyse": "Rétention stable de rentrée.",
-      },
-      {
-          "cohorte": "2017-11",
-          "taille": 7060,
-          "m1": 0.23,
-          "m3": 0.18,
-          "m6": 0.14,
-          "analyse": (
-              "Volume très important poussé par le Black Friday mais faible"
-              " rachat."
-          ),
-      },
-  ]
-  df_c = pd.DataFrame(data_coh)
-
-  col_g, col_d = st.columns([2, 1])
-  with col_g:
-    coh_sel = st.selectbox(
-        "Sélectionner la cohorte :", df_c["cohorte"].tolist()
-    )
-    df_f_c = df_c[df_c["cohorte"] == coh_sel]
-    st.dataframe(
-        df_f_c[["cohorte", "taille", "m1", "m3", "m6"]], use_container_width=True
-    )
-    st.warning(
-        "💡 **Conclusion SQL :** Taux de rachat global < 1%, confirmant des"
-        " achats uniques."
-    )
-
-  with col_d:
-    st.markdown("### 📋 Détail Cohorte")
-    info_c = df_f_c.iloc[0]
-    st.markdown(f"**Cohorte :** {info_c['cohorte']}")
-    st.metric("Taille initiale", f"{info_c['taille']:,} clients")
-    st.markdown(f"**Analyse :**\n{info_c['analyse']}")
-
-# --- PAGE 5 : LOGISTIQUE ---
-elif menu == "Statuts & Logistique":
-  st.title("📦 Analyse Logistique & Statuts")
-  st.markdown("Ventilation des états de traitement des commandes.")
-  # Illustration conceptuelle : Entrepôt / Colis e-commerce réel
-  st.image(
-      "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?q=80&w=1000&auto=format&fit=crop",
-      use_container_width=True,
-  )
-
-  data_st =
+      "
