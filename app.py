@@ -11,17 +11,19 @@ st.set_page_config(
 
 st.title("📊 Tableau de bord - Olist E-Commerce Analytics")
 st.markdown(
-    "Application interactive connectée à l'analyse SQL (Segmentation RFM,"
-    " Rétention et Chiffre d'affaires)."
+    "Application interactive mettant en valeur l'analyse SQL complète d'une"
+    " marketplace (9 tables, Segmentation RFM, Cohortes et Chiffre d'affaires)."
 )
 
-# Menu latéral
+# Menu latéral enrichi
 menu = st.sidebar.selectbox(
     "Navigation",
     [
         "Accueil & Contexte",
         "Chiffre d'Affaires Mensuel",
         "Segmentation RFM (Segments)",
+        "Rétention par Cohortes",
+        "Statuts des Commandes",
     ],
 )
 
@@ -29,21 +31,27 @@ if menu == "Accueil & Contexte":
   st.header("Bienvenue sur le dashboard d'analyse Olist !")
   st.write(
       "Ce projet analyse une marketplace e-commerce brésilienne à travers"
-      " des requêtes SQL pures (SQLite) répertoriées dans le dépôt GitHub."
+      " un ensemble de scripts SQL pures (SQLite) exploitant 9 tables de"
+      " données distinctes."
   )
-  st.info(
-      "💡 Utilisez le menu de gauche pour explorer les résultats clés du"
-      " chiffre d'affaires et de la segmentation RFM."
-  )
+
+  st.markdown("### 📁 Les 9 tables du projet :")
+  st.markdown("""
+    - `olist_orders_dataset` (Commandes)
+    - `olist_customers_dataset` (Clients et correspondance `customer_unique_id`)
+    - `olist_order_items_dataset` (Lignes de commande / articles)
+    - `olist_order_payments_dataset` (Paiements)
+    - `olist_order_reviews_dataset` (Avis clients)
+    - `olist_products_dataset` (Produits)
+    - `olist_sellers_dataset` (Vendeurs)
+    - `olist_geolocation_dataset` (Géolocalisation)
+    - `product_category_name_translation` (Traduction des catégories)
+    """)
 
 elif menu == "Chiffre d'Affaires Mensuel":
   st.header("📈 Évolution du Chiffre d'Affaires Mensuel")
-  st.markdown(
-      "Visualisation basée sur les résultats de la requête"
-      " `03_ca_mensuel.sql`."
-  )
+  st.markdown("Basé sur les scripts `03_ca_mensuel.sql` et `09_croissance_mensuelle.sql`.")
 
-  # Données agrégées issues de l'analyse Olist pour l'affichage web
   data_ca = {
       "mois": [
           "2017-01",
@@ -98,16 +106,11 @@ elif menu == "Chiffre d'Affaires Mensuel":
       title="Chiffre d'Affaires Mensuel (en Réals brésiliens)",
   )
   st.plotly_chart(fig, use_container_width=True)
-
-  st.subheader("Détails des données mensuelles")
   st.dataframe(df_ca)
 
 elif menu == "Segmentation RFM (Segments)":
-  st.header("🎯 Répartition des Segments RFM")
-  st.markdown(
-      "Résultats de la segmentation client issus du script"
-      " `07_rfm_segments.sql`."
-  )
+  st.header("🎯 Segmentation RFM des Clients")
+  st.markdown("Basé sur le script `07_rfm_segments.sql`.")
 
   data_rfm = {
       "segment": [
@@ -140,6 +143,54 @@ elif menu == "Segmentation RFM (Segments)":
       color="segment",
   )
   st.plotly_chart(fig_bar, use_container_width=True)
-
-  st.subheader("Tableau récapitulatif des segments")
   st.dataframe(df_seg)
+
+elif menu == "Rétention par Cohortes":
+  st.header("🔄 Analyse de Rétention par Cohortes Mensuelles")
+  st.markdown(
+      "Basé sur l'optimisation réalisée dans `08_cohortes_retention.sql`"
+      " (mesure du taux de rachat des clients à M1, M3, M6)."
+  )
+
+  # Données de synthèse issues de l'analyse
+  data_cohortes = {
+      "cohorte": ["2017-01", "2017-03", "2017-05", "2017-07", "2017-09", "2017-11"],
+      "taille_cohorte": [743, 2554, 3451, 3810, 4012, 7060],
+      "pct_retour_m1": [0.27, 0.39, 0.17, 0.52, 0.35, 0.23],
+      "pct_retour_m3": [0.13, 0.24, 0.29, 0.34, 0.20, 0.18],
+      "pct_retour_m6": [0.27, 0.20, 0.17, 0.21, 0.15, 0.14],
+  }
+  df_coh = pd.DataFrame(data_cohortes)
+  st.dataframe(df_coh)
+  st.info(
+      "💡 Constat de l'analyse : Moins de 1 % des clients repassent commande à"
+      " 1, 3 ou 6 mois, montrant une marketplace vivant principalement"
+      " d'acheteurs uniques."
+  )
+
+elif menu == "Statuts des Commandes":
+  st.header("📦 Répartition des Statuts de Commandes")
+  st.markdown("Basé sur le script `04_statuts_commandes.sql`.")
+
+  data_statuts = {
+      "order_status": [
+          "delivered",
+          "shipped",
+          "canceled",
+          "unavailable",
+          "invoiced",
+          "processing",
+          "created",
+      ],
+      "pourcentage": [97.02, 1.15, 0.63, 0.31, 0.31, 0.30, 0.05],
+  }
+  df_stat = pd.DataFrame(data_statuts)
+
+  fig_pie = px.pie(
+      df_stat,
+      names="order_status",
+      values="pourcentage",
+      title="Répartition globale des statuts de commandes",
+  )
+  st.plotly_chart(fig_pie, use_container_width=True)
+  st.dataframe(df_stat)
