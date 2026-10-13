@@ -72,6 +72,11 @@ Le chiffre d'affaires mensuel passe de 111 798 en janvier 2017 à 481 605 en jui
 - L'absence de novembre 2016 dans les commandes livrées est une particularité des données.
 - L'analyse est descriptive : elle ne prédit pas le comportement futur des clients.
 
+## 🚀 Application en Direct
+
+Vous pouvez tester le tableau de bord interactif complet déployé sur Streamlit Cloud :
+👉 **[Accéder au Dashboard Olist Analytics](https://olist-sql-analyse-clients-spxwv9ukb9mxsh89patmwf.streamlit.app)**
+
 ## Pistes d'amélioration
 
 - Ajouter l'analyse des avis clients (note moyenne par segment).
