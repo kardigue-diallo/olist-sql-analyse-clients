@@ -9,7 +9,7 @@ st.set_page_config(
     layout="wide",
 )
 
-# Titre principal avec un style épuré
+# Titre principal
 st.title("📊 Tableau de bord - Olist E-Commerce Analytics")
 st.markdown(
     "Application interactive mettant en valeur l'analyse SQL complète des **9"
@@ -38,7 +38,7 @@ if menu == "Accueil & Contexte (9 tables)":
       " relationnelles."
   )
 
-  # Affichage sous forme de métriques animées/stylées
+  # Indicateurs clés (KPIs)
   col1, col2, col3, col4 = st.columns(4)
   col1.metric("Commandes totales", "99 441", "+97% livrées")
   col2.metric("Clients uniques", "96 096", "Base unifiée")
@@ -48,19 +48,22 @@ if menu == "Accueil & Contexte (9 tables)":
   st.markdown("### 📁 Les 9 tables analysées dans le dépôt :")
   st.markdown("""
     - `olist_orders_dataset` (Commandes)
-    - `olist_customers_dataset` (Clients)[cite: 21]
-    - `olist_order_items_dataset` (Lignes de commande)[cite: 21]
-    - `olist_order_payments_dataset` (Paiements)[cite: 21]
-    - `olist_order_reviews_dataset` (Avis et notes)[cite: 21]
-    - `olist_products_dataset` (Produits)[cite: 21]
-    - `olist_sellers_dataset` (Vendeurs)[cite: 21]
-    - `olist_geolocation_dataset` (Géolocalisation)[cite: 21]
-    - `product_category_name_translation` (Traduction des catégories)[cite: 21]
+    - `olist_customers_dataset` (Clients)
+    - `olist_order_items_dataset` (Lignes de commande)
+    - `olist_order_payments_dataset` (Paiements)
+    - `olist_order_reviews_dataset` (Avis et notes)
+    - `olist_products_dataset` (Produits)
+    - `olist_sellers_dataset` (Vendeurs)
+    - `olist_geolocation_dataset` (Géolocalisation)
+    - `product_category_name_translation` (Traduction des catégories)
     """)
 
 elif menu == "Chiffre d'Affaires & Croissance":
   st.header("📈 Évolution Dynamique du Chiffre d'Affaires")
-  st.markdown("Basé sur les scripts `03_ca_mensuel.sql` et `09_croissance_mensuelle.sql`[cite: 23, 29].")
+  st.markdown(
+      "Visualisation interactive avec curseur temporel pour analyser la"
+      " croissance et la décroissance."
+  )
 
   data_ca = {
       "mois": [
@@ -108,15 +111,30 @@ elif menu == "Chiffre d'Affaires & Croissance":
   }
   df_ca = pd.DataFrame(data_ca)
 
-  # Graphique animé / interactif avec Plotly
+  # Graphique Plotly avec curseur interactif (range slider)
   fig = px.area(
       df_ca,
       x="mois",
       y="chiffre_affaires",
       markers=True,
-      title="Croissance Mensuelle du Chiffre d'Affaires (Vue lissée)",
+      title="Croissance Mensuelle du Chiffre d'Affaires",
       color_discrete_sequence=["#2b5c8f"],
   )
+
+  fig.update_layout(
+      xaxis=dict(
+          rangeselector=dict(
+              buttons=[
+                  dict(count=3, label="3m", step="month", stepmode="backward"),
+                  dict(count=6, label="6m", step="month", stepmode="backward"),
+                  dict(step="all", label="Tout afficher"),
+              ]
+          ),
+          rangeslider=dict(visible=True),
+          type="category",
+      )
+  )
+
   st.plotly_chart(fig, use_container_width=True)
 
   st.subheader("Tableau détaillé")
@@ -124,7 +142,7 @@ elif menu == "Chiffre d'Affaires & Croissance":
 
 elif menu == "Segmentation RFM (Clients)":
   st.header("🎯 Analyse RFM et Segmentation Client")
-  st.markdown("Basé sur le script `07_rfm_segments.sql`[cite: 27].")
+  st.markdown("Répartition des clients selon leur Récence, Fréquence et Montant.")
 
   data_rfm = {
       "segment": [
@@ -149,7 +167,6 @@ elif menu == "Segmentation RFM (Clients)":
   }
   df_seg = pd.DataFrame(data_rfm)
 
-  # Graphique en barres interactif avec animation de survol
   fig_bar = px.bar(
       df_seg,
       x="segment",
@@ -165,7 +182,7 @@ elif menu == "Segmentation RFM (Clients)":
 
 elif menu == "Rétention par Cohortes":
   st.header("🔄 Analyse de Rétention par Cohortes Mensuelles")
-  st.markdown("Basé sur l'optimisation réalisée dans `08_cohortes_retention.sql`[cite: 28].")
+  st.markdown("Mesure du taux de rachat des clients à M1, M3 et M6.")
 
   data_cohortes = {
       "cohorte": ["2017-01", "2017-03", "2017-05", "2017-07", "2017-09", "2017-11"],
@@ -179,13 +196,13 @@ elif menu == "Rétention par Cohortes":
 
   st.info(
       "💡 **Insight :** Moins de 1 % des clients repassent commande à M1, M3"
-      " ou M6, confirmant que la marketplace repose sur des acheteurs"
-      " uniques[cite: 6]."
+      " ou M6, confirmant que la marketplace repose principalement sur des"
+      " acheteurs uniques."
   )
 
 elif menu == "Statuts & Logistique":
   st.header("📦 État des Commandes et Logistique")
-  st.markdown("Basé sur le script `04_statuts_commandes.sql`[cite: 24].")
+  st.markdown("Analyse des statuts de commandes issus de la table orders.")
 
   data_statuts = {
       "order_status": [
@@ -206,19 +223,15 @@ elif menu == "Statuts & Logistique":
       names="order_status",
       values="pourcentage",
       hole=0.4,
-      title="Répartition des Statuts de Commandes (Donnant 97.02% de livraisons)",
+      title="Répartition Globale des Statuts de Commandes",
   )
   st.plotly_chart(fig_pie, use_container_width=True)
   st.dataframe(df_stat)
 
 elif menu == "Avis & Satisfaction Client":
-  st.header("⭐ Analyse des Avis Clients (Table Avis)")
-  st.markdown(
-      "Exploitation de la table `olist_order_reviews_dataset` pour évaluer"
-      " la satisfaction globale[cite: 21]."
-  )
+  st.header("⭐ Analyse des Avis Clients")
+  st.markdown("Exploitation de la table des avis pour évaluer la satisfaction.")
 
-  # Simulation des notes basées sur la structure Olist typique
   data_reviews = {
       "Note (Stars)": ["5 Étoiles", "4 Étoiles", "3 Étoiles", "2 Étoiles", "1 Étoile"],
       "Pourcentage": [57.3, 19.1, 8.3, 3.2, 12.1],
@@ -238,19 +251,19 @@ elif menu == "Avis & Satisfaction Client":
 elif menu == "Vendeurs & Géolocalisation":
   st.header("🌍 Performance des Vendeurs et Répartition Géographique")
   st.markdown(
-      "Exploitation des tables `olist_sellers_dataset` et"
-      " `olist_geolocation_dataset`[cite: 21]."
+      "Exploitation des tables de géolocalisation et des vendeurs partenaires."
   )
 
   col1, col2 = st.columns(2)
   with col1:
     st.subheader("Top Régions / États")
-    st.write(
-        "La grande majorité des acheteurs et vendeurs se concentre dans les"
-        " états du Sud-Est du Brésil (São Paulo - SP en tête)."
-    )
     df_geo = pd.DataFrame({
-        "État": ["São Paulo (SP)", "Rio de Janeiro (RJ)", "Minas Gerais (MG)", "Rio Grande do Sul (RS)"],
+        "État": [
+            "São Paulo (SP)",
+            "Rio de Janeiro (RJ)",
+            "Minas Gerais (MG)",
+            "Rio Grande do Sul (RS)",
+        ],
         "Part (%)": [42.1, 12.8, 11.6, 5.4],
     })
     st.dataframe(df_geo)
@@ -259,6 +272,6 @@ elif menu == "Vendeurs & Géolocalisation":
     st.subheader("Écosystème Vendeurs")
     st.metric("Nombre total de vendeurs actifs", "3 095", "Actifs sur la plateforme")
     st.info(
-        "💡 Les requêtes de jointure multi-tables permettent de lier chaque"
-        " article vendu à son vendeur d'origine."
+        "💡 Les requêtes multi-tables permettent de lier chaque article vendu"
+        " à son vendeur d'origine."
     )
