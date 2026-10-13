@@ -16,7 +16,7 @@ def apply_clean_theme():
       """
         <style>
         .stApp {
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
         }
         .block-container {
             background-color: #ffffff;
@@ -26,13 +26,13 @@ def apply_clean_theme():
             margin-top: 1rem;
         }
         h1, h2, h3 {
-            color: #1e293b;
+            color: #0f172a;
             font-weight: 700;
         }
-        /* Style élégant pour les images d'illustration sous les textes */
+        /* Style des images : hauteur modérée, pas d'empiètement */
         .stImage img {
             border-radius: 12px;
-            max-height: 250px;
+            max-height: 200px;
             object-fit: cover;
             margin-top: 10px;
             margin-bottom: 20px;
@@ -67,8 +67,9 @@ if menu == "Accueil & Contexte (9 tables)":
       "Application interactive complète mettant en valeur l'analyse SQL des **9"
       " tables** de la marketplace Olist."
   )
+  # Illustration conceptuelle : Base de données / Data Analytics (sans texte)
   st.image(
-      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1000&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=1000&auto=format&fit=crop",
       use_container_width=True,
   )
 
@@ -86,18 +87,18 @@ if menu == "Accueil & Contexte (9 tables)":
   col_a, col_b = st.columns(2)
   with col_a:
     st.markdown("""
-        * `olist_orders_dataset` (Commandes)[cite: 21]
-        * `olist_customers_dataset` (Clients)[cite: 21]
-        * `olist_order_items_dataset` (Articles)[cite: 21]
-        * `olist_order_payments_dataset` (Paiements)[cite: 21]
-        * `olist_order_reviews_dataset` (Avis)[cite: 21]
+        * `olist_orders_dataset` (Commandes)
+        * `olist_customers_dataset` (Clients)
+        * `olist_order_items_dataset` (Articles)
+        * `olist_order_payments_dataset` (Paiements)
+        * `olist_order_reviews_dataset` (Avis)
         """)
   with col_b:
     st.markdown("""
-        * `olist_products_dataset` (Catalogue produits)[cite: 21]
-        * `olist_sellers_dataset` (Vendeurs)[cite: 21]
-        * `olist_geolocation_dataset` (Coordonnées geo)[cite: 21]
-        * `product_category_name_translation` (Traductions)[cite: 21]
+        * `olist_products_dataset` (Catalogue produits)
+        * `olist_sellers_dataset` (Vendeurs)
+        * `olist_geolocation_dataset` (Coordonnées geo)
+        * `product_category_name_translation` (Traductions)
         """)
 
 # --- PAGE 2 : CHIFFRE D'AFFAIRES ---
@@ -107,8 +108,9 @@ elif menu == "Chiffre d'Affaires & Croissance":
       "Pilotez l'évolution temporelle pour analyser chaque variation réelle de"
       " votre requête SQL."
   )
+  # Illustration conceptuelle : Croissance / Finance (sans graphique fictif)
   st.image(
-      "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1000&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1559526324-4b87b5e36e44?q=80&w=1000&auto=format&fit=crop",
       use_container_width=True,
   )
 
@@ -252,6 +254,7 @@ elif menu == "Chiffre d'Affaires & Croissance":
 elif menu == "Segmentation RFM (Clients)":
   st.title("🎯 Segmentation RFM des Clients")
   st.markdown("Analyse croisée Récence, Fréquence et Montant.")
+  # Illustration conceptuelle : Relation client / Shopping
   st.image(
       "https://images.unsplash.com/photo-1556742049-0a670f4a458d?q=80&w=1000&auto=format&fit=crop",
       use_container_width=True,
@@ -284,7 +287,7 @@ elif menu == "Segmentation RFM (Clients)":
           "segment": "Perdus",
           "clients": 22610,
           "ca": 1259040.0,
-          "desc": "Anciens clients n'ayant pas repassé commande depuis longtemps.",
+          "desc": "Anciens clients n'having pas repassé commande depuis longtemps.",
       },
       {
           "segment": "Nouveaux clients",
@@ -333,8 +336,9 @@ elif menu == "Segmentation RFM (Clients)":
 elif menu == "Rétention par Cohortes":
   st.title("🔄 Analyse de Rétention par Cohortes")
   st.markdown("Analyse du taux de rachat à M1, M3 et M6.")
+  # Illustration conceptuelle : Temps / Calendrier
   st.image(
-      "https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?q=80&w=1000&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1506784983877-45594efa4cbe?q=80&w=1000&auto=format&fit=crop",
       use_container_width=True,
   )
 
@@ -418,112 +422,10 @@ elif menu == "Rétention par Cohortes":
 elif menu == "Statuts & Logistique":
   st.title("📦 Analyse Logistique & Statuts")
   st.markdown("Ventilation des états de traitement des commandes.")
+  # Illustration conceptuelle : Entrepôt / Colis e-commerce réel
   st.image(
       "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?q=80&w=1000&auto=format&fit=crop",
       use_container_width=True,
   )
 
-  data_st = [
-      {
-          "statut": "delivered",
-          "pct": 97.02,
-          "desc": "Livrées avec succès aux clients.",
-      },
-      {"statut": "shipped", "pct": 1.15, "desc": "En cours d'acheminement."},
-      {"statut": "canceled", "pct": 0.63, "desc": "Annulées avant livraison."},
-      {
-          "statut": "unavailable",
-          "pct": 0.31,
-          "desc": "Stock indisponible chez le vendeur.",
-      },
-      {"statut": "invoiced", "pct": 0.31, "desc": "Facturées, en attente d'envoi."},
-      {"statut": "processing", "pct": 0.30, "desc": "En cours de préparation."},
-      {"statut": "created", "pct": 0.05, "desc": "Créées, paiement non validé."},
-  ]
-  df_st = pd.DataFrame(data_st)
-
-  col_g, col_d = st.columns([2, 1])
-  with col_g:
-    fig_pie = px.pie(
-        df_st,
-        names="statut",
-        values="pct",
-        hole=0.4,
-        title="Répartition des Statuts de Commandes (%)",
-    )
-    st.plotly_chart(fig_pie, use_container_width=True)
-
-  with col_d:
-    st.markdown("### 🔍 Performance Logistique")
-    st.success("Taux de livraison validé : **97.02%**")
-    st.write(
-        "Le taux de commandes annulées ou indisponibles reste maîtrisé sous"
-        " la barre des 1%."
-    )
-
-# --- PAGE 6 : AVIS CLIENTS ---
-elif menu == "Avis & Satisfaction Client":
-  st.title("⭐ Analyse de la Satisfaction Client")
-  st.markdown("Répartition des notes laissées sur les commandes.")
-  st.image(
-      "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=1000&auto=format&fit=crop",
-      use_container_width=True,
-  )
-
-  data_rev = [
-      {"note": "5 Étoiles", "pct": 57.3, "avis": "Excellente satisfaction."},
-      {"note": "4 Étoiles", "pct": 19.1, "avis": "Très bonne évaluation."},
-      {"note": "3 Étoiles", "pct": 8.3, "avis": "Avis mitigé."},
-      {"note": "2 Étoiles", "pct": 3.2, "avis": "Insatisfaction partielle."},
-      {"note": "1 Étoile", "pct": 12.1, "avis": "Insatisfaction majeure."},
-  ]
-  df_r = pd.DataFrame(data_rev)
-
-  col_g, col_d = st.columns([2, 1])
-  with col_g:
-    fig_rev = px.bar(
-        df_r,
-        x="note",
-        y="pct",
-        color="note",
-        title="Distribution des Notes Clients (%)",
-    )
-    st.plotly_chart(fig_rev, use_container_width=True)
-
-  with col_d:
-    st.markdown("### 💡 Synthèse Satisfaction")
-    note_sel = st.selectbox("Note :", df_r["note"].tolist())
-    r_info = df_r[df_r["note"] == note_sel].iloc[0]
-    st.metric("Part des avis", f"{r_info['pct']}%")
-    st.markdown(f"**Explication :**\n{r_info['avis']}")
-
-# --- PAGE 7 : GEOLOCALISATION ---
-elif menu == "Vendeurs & Géolocalisation":
-  st.title("🌍 Géolocalisation & Vendeurs Partenaires")
-  st.markdown("Maillage territorial des acheteurs et vendeurs.")
-  st.image(
-      "https://images.unsplash.com/photo-1526778548025-fa2f459cd5c1?q=80&w=1000&auto=format&fit=crop",
-      use_container_width=True,
-  )
-
-  col1, col2 = st.columns(2)
-  with col1:
-    st.subheader("Top États (Volume de Ventes)")
-    df_geo = pd.DataFrame({
-        "État": [
-            "São Paulo (SP)",
-            "Rio de Janeiro (RJ)",
-            "Minas Gerais (MG)",
-            "Rio Grande do Sul (RS)",
-        ],
-        "Part (%)": [42.1, 12.8, 11.6, 5.4],
-    })
-    st.dataframe(df_geo, use_container_width=True)
-
-  with col2:
-    st.subheader("Réseau Vendeurs")
-    st.metric("Vendeurs enregistrés", "3 095", "Actifs dans l'écosystème")
-    st.info(
-        "💡 L'État de São Paulo (SP) concentre la majorité de l'activité"
-        " commerciale et logistique."
-    )
+  data_st =
