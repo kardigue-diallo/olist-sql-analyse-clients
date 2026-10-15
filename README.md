@@ -4,9 +4,11 @@ Analyse d'une marketplace brésilienne réalisée **uniquement en SQL** (SQLite)
 
 L'objectif est de répondre à trois questions business : qui sont les meilleurs clients, qui est en train de partir, et combien de clients reviennent acheter.
 
+**Notebook Kaggle (en anglais) :** [Olist E-commerce: RFM & Retention in SQL](https://www.kaggle.com/code/kardiguediallo/olist-e-commerce-rfm-retention-in-sql). Mêmes requêtes et mêmes chiffres que ce dépôt, avec les graphiques exécutés.
+
 ## Données
 
-- Source : [Brazilian E-Commerce Public Dataset by Olist](https://www.kaggle.com/) (Kaggle), licence CC BY-NC-SA 4.0.
+- Source : [Brazilian E-Commerce Public Dataset by Olist](https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce) (Kaggle), licence CC BY-NC-SA 4.0.
 - 9 tables liées : commandes, clients, lignes de commande, paiements, avis, produits, vendeurs, géolocalisation, traduction des catégories.
 - Volume : 99 441 commandes, 112 650 lignes de commande, 96 096 clients uniques, de 2016 à 2018.
 - Les fichiers CSV et la base `olist.db` ne sont pas inclus dans ce dépôt (taille et licence). Pour reproduire l'analyse, téléchargez le dataset sur Kaggle et importez les 9 CSV dans SQLite (DB Browser for SQLite : *Fichier > Importer > Table depuis un fichier CSV*, avec « Tables distinctes » coché).
@@ -29,6 +31,7 @@ SQLite, DB Browser for SQLite. Notions SQL utilisées : jointures multi-tables, 
 | `07_rfm_segments.sql` | Scores et segments RFM |
 | `08_cohortes_retention.sql` | Rétention par cohortes mensuelles |
 | `09_croissance_mensuelle.sql` | Croissance mensuelle avec `LAG()` |
+| `images/` | Graphiques utilisés dans ce README |
 
 ## Choix méthodologiques
 
