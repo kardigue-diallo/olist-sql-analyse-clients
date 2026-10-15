@@ -61,13 +61,25 @@ SQLite, DB Browser for SQLite. Notions SQL utilisées : jointures multi-tables, 
 - Le segment **« à risque »** représente 14,7 % des clients et 28,8 % du chiffre d'affaires : ce sont des clients à fort montant qui ne sont pas revenus depuis longtemps, cible naturelle d'une campagne de réactivation.
 - Les « gros montant » pèsent lourd en partie par construction (définis comme les 40 % de clients qui dépensent le plus). L'information utile est le croisement avec la récence.
 
+- ![Part des clients et part du chiffre d'affaires par segment RFM](images/rfm_segments.png)
+
+*Part des clients (gris) et part du chiffre d'affaires (bleu) par segment RFM.*
+
 ### Rétention par cohortes
 
 Sur 14 cohortes mensuelles (janvier 2017 à février 2018), moins de 1 % des nouveaux clients repassent commande à 1, 3 ou 6 mois. La marketplace vit surtout d'acheteurs uniques. Les effectifs de retour sont très faibles (quelques dizaines de personnes par cohorte), donc les variations d'une cohorte à l'autre ne sont pas interprétables. La cohorte de novembre 2017 est la plus grosse (7 060 nouveaux clients), ce qui pourrait refléter un effet Black Friday (hypothèse, non démontrée par ces données).
 
+![Rétention par cohortes à 1, 3 et 6 mois](images/cohort_retention.png)
+
+*Part de chaque cohorte qui recommande après 1, 3 et 6 mois (en %). Toutes les valeurs restent sous 1 %.*
+
 ### Croissance du chiffre d'affaires
 
 Le chiffre d'affaires mensuel passe de 111 798 en janvier 2017 à 481 605 en juillet 2017. La croissance est très forte au démarrage (+109,5 % en février 2017, +53,4 % en mars 2017) puis irrégulière. À partir de mars 2018 (+15,4 %), le chiffre d'affaires se stabilise entre environ 840 000 et 980 000 par mois, avec des variations mensuelles comprises entre -12,4 % et +2,1 %.
+
+![Chiffre d'affaires mensuel des commandes livrées](images/monthly_revenue.png)
+
+*Chiffre d'affaires mensuel des commandes livrées (en reals brésiliens). Le pic de novembre 2017 coïncide avec la plus grosse cohorte de nouveaux clients.*
 
 ## Limites
 
